@@ -32,7 +32,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && mkdir install-vs2019 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,imgproc,imgcodecs -D CV_DISABLE_OPTIMIZATION=ON 
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,imgproc,imgcodecs,highgui,videoio,photo -D CV_DISABLE_OPTIMIZATION=ON 
         -D WITH_TIFF=OFF -D BUILD_TIFF=OFF 
         -D WITH_OPENJPEG=OFF -D BUILD_OPENJPEG=OFF 
         -D WITH_JASPER=OFF -D BUILD_JASPER=OFF 
@@ -100,7 +100,7 @@ jobs:
         -D BUILD_opencv_objdetect=OFF 
         -D BUILD_opencv_stitching=OFF 
         -D BUILD_opencv_ml=OFF 
-        -D CV_DISABLE_OPTIMIZATION=ON 
+        -D CV_DISABLE_OPTIMIZATION=OFF 
         -D WITH_VTK=OFF 
         -D WITH_CUDA=OFF 
         -D CMAKE_FIND_DEBUG_MODE=FALSE &&
@@ -110,7 +110,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x86 && cd build-vs2019-x86 &&
-        cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,imgproc,imgcodecs -D CV_DISABLE_OPTIMIZATION=ON 
+        cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,imgproc,imgcodecs,highgui,videoio,photo -D CV_DISABLE_OPTIMIZATION=ON 
         -D WITH_TIFF=OFF -D BUILD_TIFF=OFF 
         -D WITH_OPENJPEG=OFF -D BUILD_OPENJPEG=OFF 
         -D WITH_JASPER=OFF -D BUILD_JASPER=OFF 
@@ -178,7 +178,7 @@ jobs:
         -D BUILD_opencv_objdetect=OFF 
         -D BUILD_opencv_stitching=OFF 
         -D BUILD_opencv_ml=OFF 
-        -D CV_DISABLE_OPTIMIZATION=ON 
+        -D CV_DISABLE_OPTIMIZATION=OFF 
         -D WITH_VTK=OFF 
         -D WITH_CUDA=OFF 
         -D CMAKE_FIND_DEBUG_MODE=FALSE &&
