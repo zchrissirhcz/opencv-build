@@ -196,7 +196,7 @@ jobs:
   
   release:
     needs: [setup, vs2019-opencv4]
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     steps:
     - name: download
       uses: actions/download-artifact@v2
