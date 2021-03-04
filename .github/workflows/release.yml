@@ -106,6 +106,7 @@ jobs:
         -D CMAKE_FIND_DEBUG_MODE=FALSE &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
+        cd ..
     # - name: build-vs2019-x86
     #   run: >-
     #     cd opencv-${{ env.OPENCV_VERSION }} &&
@@ -184,6 +185,7 @@ jobs:
     #     -D CMAKE_FIND_DEBUG_MODE=FALSE &&
     #     cmake --build . --config Release -j 2 &&
     #     cmake --install . --config Release
+    #     cd ..
     - name: package
       run: |
         7z a -r ${{ env.PACKAGENAME }}.zip install-vs2019
