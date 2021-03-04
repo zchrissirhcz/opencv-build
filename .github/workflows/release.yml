@@ -1,9 +1,9 @@
 name: release
-on: [push, pull_request]
-# on:
-#   push:
-#     tags:
-#       - '*'
+#on: [push, pull_request]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   setup:
@@ -32,7 +32,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,improc,imgcodecs -D CV_DISABLE_OPTIMIZATION=ON 
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core,imgproc,imgcodecs -D CV_DISABLE_OPTIMIZATION=ON 
         -D WITH_TIFF=OFF -D BUILD_TIFF=OFF 
         -D WITH_OPENJPEG=OFF -D BUILD_OPENJPEG=OFF 
         -D WITH_JASPER=OFF -D BUILD_JASPER=OFF 
@@ -94,7 +94,6 @@ jobs:
         -D BUILD_opencv_python2=OFF 
         -D BUILD_opencv_python3=OFF 
         -D BUILD_opencv_dnn=OFF 
-        -D BUILD_opencv_imgcodecs=OFF 
         -D BUILD_opencv_videoio=OFF 
         -D BUILD_opencv_calib3d=OFF 
         -D BUILD_opencv_flann=OFF 
@@ -173,7 +172,6 @@ jobs:
         -D BUILD_opencv_python2=OFF 
         -D BUILD_opencv_python3=OFF 
         -D BUILD_opencv_dnn=OFF 
-        -D BUILD_opencv_imgcodecs=OFF 
         -D BUILD_opencv_videoio=OFF 
         -D BUILD_opencv_calib3d=OFF 
         -D BUILD_opencv_flann=OFF 
