@@ -29,20 +29,20 @@ jobs:
         cd opencv-${{ env.OPENCV_VERSION }}
         Remove-Item 'modules\gapi' -Recurse
     - name: build-vs2019-x64
-      run: |
-        cd opencv-${{ env.OPENCV_VERSION }}
-        mkdir build-vs2019-x64 && cd build-vs2019-x64
-        CALL cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON ^
-        -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D BUILD_opencv_python2=OFF -D BUILD_opencv_python3=OFF -D BUILD_EXAMPLES=OFF
-        cmake --build . --config Release -j 2
+      run: >-
+        cd opencv-${{ env.OPENCV_VERSION }} &&
+        mkdir build-vs2019-x64 && cd build-vs2019-x64 &&
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON 
+        -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D BUILD_opencv_python2=OFF -D BUILD_opencv_python3=OFF -D BUILD_EXAMPLES=OFF &&
+        cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     - name: build-vs2019-x86
-      run: |
-        cd opencv-${{ env.OPENCV_VERSION }}
-        mkdir build-vs2019-x86 && cd build-vs2019-x86
-        CALL cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON ^
-        -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D BUILD_opencv_python2=OFF -D BUILD_opencv_python3=OFF -D BUILD_EXAMPLES=OFF
-        cmake --build . --config Release -j 2
+      run: >-
+        cd opencv-${{ env.OPENCV_VERSION }} &&
+        mkdir build-vs2019-x86 && cd build-vs2019-x86 &&
+        cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON 
+        -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D BUILD_opencv_python2=OFF -D BUILD_opencv_python3=OFF -D BUILD_EXAMPLES=OFF &&
+        cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     - name: package
       run: |
