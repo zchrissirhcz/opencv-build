@@ -14,7 +14,9 @@ jobs:
     - name: get-version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: print-version
       run: echo ${{ steps.get_version.outputs.version }}
+    - name: print-version-without-v
       run: echo ${{ steps.get_version.outputs.version-without-v }}
   
   vs2019-opencv4:
