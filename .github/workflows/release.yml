@@ -24,7 +24,7 @@ jobs:
         Invoke-WebRequest -Uri https://github.com/opencv/opencv/archive/${{ env.OPENCV_VERSION }}.zip -OutFile opencv-${{ env.OPENCV_VERSION }}.zip
         7z x ./opencv-${{ env.OPENCV_VERSION }}.zip
         cd opencv-${{ env.OPENCV_VERSION }}
-        rm -rf modules/gapi
+        Remove-Item 'modules\gapi' -Recurse
     - name: build-vs2019-x64
       run: |
         cd opencv-${{ env.OPENCV_VERSION }}
