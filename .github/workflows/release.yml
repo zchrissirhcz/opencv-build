@@ -14,13 +14,8 @@ jobs:
     - name: get-version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-    - name: print-version
-      run: echo ${{ steps.get_version.outputs.version }}
-    - name: print-version-without-v
-      run: echo ${{ steps.get_version.outputs.version-without-v }}
-  
+
   vs2019-opencv4:
-    needs: [setup]
     runs-on: windows-2019
     env:
       OPENCV_VERSION: 4.5.1
@@ -200,7 +195,7 @@ jobs:
   
   release:
     needs: [setup, vs2019-opencv4]
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     steps:
     - name: download
       uses: actions/download-artifact@v2
@@ -213,7 +208,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ needs.setup.outputs.VERSION }}
+        #tag_name: ${{ needs.setup.outputs.VERSION }}
+        tag_name: v1
         release_name: Release ${{ needs.setup.outputs.VERSION }}
         draft: false
         prerelease: false
