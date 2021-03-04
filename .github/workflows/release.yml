@@ -32,7 +32,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && mkdir install-vs2019 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=%cd%/../install-vs2019 -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON 
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON 
         -D WITH_TIFF=OFF -D BUILD_TIFF=OFF 
         -D WITH_OPENJPEG=OFF -D BUILD_OPENJPEG=OFF 
         -D WITH_JASPER=OFF -D BUILD_JASPER=OFF 
@@ -106,7 +106,6 @@ jobs:
         -D CMAKE_FIND_DEBUG_MODE=FALSE &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
-        cd ..
     # - name: build-vs2019-x86
     #   run: >-
     #     cd opencv-${{ env.OPENCV_VERSION }} &&
@@ -185,10 +184,11 @@ jobs:
     #     -D CMAKE_FIND_DEBUG_MODE=FALSE &&
     #     cmake --build . --config Release -j 2 &&
     #     cmake --install . --config Release
-    #     cd ..
     - name: package
       run: |
-        7z a -r ${{ env.PACKAGENAME }}.zip install-vs2019
+        mkdir ${{ env.PACKAGENAME }}
+        Copy-Item -Verbose -Recursive -Path "build-vs2019-x64\install\*" -Destination "${{ env.PACKAGENAME }}"
+        7z a -r ${{ env.PACKAGENAME }}.zip ${{ env.PACKAGENAME }}
     - name: upload
       uses: actions/upload-artifact@v2
       with:
