@@ -187,7 +187,7 @@ jobs:
     - name: package
       run: |
         mkdir ${{ env.PACKAGENAME }}
-        Copy-Item -Verbose -Recurse -Path "build-vs2019-x64\install\*" -Destination "${{ env.PACKAGENAME }}"
+        Copy-Item -Verbose -Recurse -Path "opencv-${{ env.OPENCV_VERSION }}\build-vs2019-x64\install\*" -Destination "${{ env.PACKAGENAME }}"
         7z a -r ${{ env.PACKAGENAME }}.zip ${{ env.PACKAGENAME }}
     - name: upload
       uses: actions/upload-artifact@v2
