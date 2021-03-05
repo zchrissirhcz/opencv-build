@@ -8,13 +8,11 @@ The official opencv still does not provide VS2019 prebuilt package, while VS2019
 
 ## Releases
 
-[v1](https://github.com/zchrissirhcz/opencv-build/releases/tag/v1)
+[v3](https://github.com/zchrissirhcz/opencv-build/releases/tag/v3) This release contains core,imgproc,imgcodecs,videoio,highgui,photo modules with optimization on, note that image format only support bmp/jpg/png.
 
-This release is for testing how to use github action, only built opencv core module for vs2019-x64.
+[v2](https://github.com/zchrissirhcz/opencv-build/releases/tag/v2) This release is for minimal daily usage of OpenCV, only consist of core,imgproc,imgcodecs module, and imread/imwrite only for bmp/jpg/png format, and turning IPP optimization off.
 
-[v2](https://github.com/zchrissirhcz/opencv-build/releases/tag/v2)
-
-This release is for minimal daily usage of OpenCV, only consist of core,imgproc,imgcodecs module, and imread/imwrite only for bmp/jpg/png format, and turning IPP optimization off.
+[v1](https://github.com/zchrissirhcz/opencv-build/releases/tag/v1) This release is for testing how to use github action, only built opencv core module for vs2019-x64.
 
 ## What's more
 
