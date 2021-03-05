@@ -32,77 +32,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && mkdir install-vs2019 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install -D BUILD_LIST=core -D CV_DISABLE_OPTIMIZATION=ON 
-        -D WITH_TIFF=OFF -D BUILD_TIFF=OFF 
-        -D WITH_OPENJPEG=OFF -D BUILD_OPENJPEG=OFF 
-        -D WITH_JASPER=OFF -D BUILD_JASPER=OFF 
-        -D WITH_JPEG=ON -DBUILD_JPEG=ON 
-        -D WITH_OPENEXR=OFF -DBUILD_OPENEXR=OFF 
-        -D WITH_WEBP=OFF -D BUILD_WEBP=OFF 
-        -D WITH_TBB=OFF -D BUILD_TBB=OFF 
-        -D WITH_ITT=OFF -D BUILD_ITT=OFF 
-        -D WITH_IPP=OFF -D BUILD_IPP_IW=OFF 
-        -D WITH_AVFOUNDATION=OFF 
-        -D WITH_CAP_IOS=OFF 
-        -D WITH_CAROTENE=OFF 
-        -D WITH_CPUFEATURES=OFF 
-        -D WITH_EIGEN=OFF 
-        -D WITH_FFMPEG=OFF 
-        -D WITH_GSTREAMER=OFF 
-        -D WITH_GTK=OFF 
-        -D WITH_HALIDE=OFF 
-        -D WITH_VULKAN=OFF 
-        -D WITH_INF_ENGINE=OFF 
-        -D WITH_NGRAPH=OFF 
-        -D WITH_OPENVX=OFF 
-        -D WITH_GDCM=OFF 
-        -D WITH_HPX=OFF 
-        -D WITH_PTHREADS_PF=OFF 
-        -D WITH_V4L=OFF 
-        -D WITH_CLP=OFF 
-        -D WITH_OPENCL=OFF 
-        -D WITH_OPENCL_SVM=OFF 
-        -D WITH_PROTOBUF=OFF 
-        -D WITH_IMGCODEC_HDR=OFF 
-        -D WITH_IMGCODEC_SUNRASTER=OFF 
-        -D WITH_IMGCODEC_PXM=OFF 
-        -D WITH_IMGCODEC_PFM=OFF 
-        -D WITH_QUIRC=OFF 
-        -D WITH_ANDROID_MEDIANDK=OFF 
-        -D WITH_TENGINE=OFF 
-        -D WITH_ONNX=OFF 
-        -D BUILD_opencv_apps=OFF 
-        -D BUILD_ANDROID_PROJECTS=OFF 
-        -D BUILD_ANDROID_EXAMPLES=OFF 
-        -D BUILD_DOCS=OFF 
-        -D BUILD_EXAMPLES=OFF 
-        -D BUILD_PACKAGE=OFF 
-        -D BUILD_PERF_TESTS=OFF 
-        -D BUILD_TESTS=OFF 
-        -D BUILD_FAT_JAVA_LIB=OFF 
-        -D BUILD_ANDROID_SERVICE=OFF 
-        -D BUILD_JAVA=OFF 
-        -D BUILD_OBJC=OFF 
-        -D ENABLE_PRECOMPILED_HEADERS=OFF 
-        -D ENABLE_FAST_MATH=OFF 
-        -D CV_TRACE=OFF 
-        -D BUILD_opencv_java=OFF 
-        -D BUILD_opencv_objc=OFF 
-        -D BUILD_opencv_js=OFF 
-        -D BUILD_opencv_ts=OFF 
-        -D BUILD_opencv_python2=OFF 
-        -D BUILD_opencv_python3=OFF 
-        -D BUILD_opencv_dnn=OFF 
-        -D BUILD_opencv_videoio=OFF 
-        -D BUILD_opencv_calib3d=OFF 
-        -D BUILD_opencv_flann=OFF 
-        -D BUILD_opencv_objdetect=OFF 
-        -D BUILD_opencv_stitching=OFF 
-        -D BUILD_opencv_ml=OFF 
-        -D CV_DISABLE_OPTIMIZATION=OFF 
-        -D WITH_VTK=OFF 
-        -D WITH_CUDA=OFF 
-        -D CMAKE_FIND_DEBUG_MODE=FALSE &&
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\vs2019-minimal-options.txt) &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     # - name: build-vs2019-x86
