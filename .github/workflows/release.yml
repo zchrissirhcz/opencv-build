@@ -15,45 +15,35 @@ jobs:
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
-  opencv-windows:
+  opencv-vs2019:
     runs-on: windows-2019
     env:
       OPENCV_VERSION: 4.5.1
-      PACKAGENAME: opencv-4.5.1-vc16-shared-minimal
+      PACKAGENAME: opencv-4.5.1-vc16
     steps:
     - uses: actions/checkout@v2
     - name: opencv-source
+      # run: |
+      #   Invoke-WebRequest -Uri https://github.com/opencv/opencv/archive/${{ env.OPENCV_VERSION }}.zip -OutFile opencv-${{ env.OPENCV_VERSION }}.zip
+      #   7z x ./opencv-${{ env.OPENCV_VERSION }}.zip
+      #   cd opencv-${{ env.OPENCV_VERSION }}
+      #   Remove-Item 'modules\gapi' -Recurse // remove gapi, thus won't download and install ade
       run: |
         Invoke-WebRequest -Uri https://github.com/opencv/opencv/archive/${{ env.OPENCV_VERSION }}.zip -OutFile opencv-${{ env.OPENCV_VERSION }}.zip
         7z x ./opencv-${{ env.OPENCV_VERSION }}.zip
         cd opencv-${{ env.OPENCV_VERSION }}
-        Remove-Item 'modules\gapi' -Recurse
     - name: build-vs2019-x64
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows-minimal.txt) &&
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows.txt) &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     - name: build-vs2019-x86
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x86 && cd build-vs2019-x86 &&
-        cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows-minimal.txt) &&
-        cmake --build . --config Release -j 2 &&
-        cmake --install . --config Release
-    - name: build-vs2017-x64
-      run: >-
-        cd opencv-${{ env.OPENCV_VERSION }} &&
-        mkdir build-vs2017-x64 && cd build-vs2017-x64 &&
-        cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows-minimal.txt) &&
-        cmake --build . --config Release -j 2 &&
-        cmake --install . --config Release
-    - name: build-vs2017-x86
-      run: >-
-        cd opencv-${{ env.OPENCV_VERSION }} &&
-        mkdir build-vs2017-x86 && cd build-vs2017-x86 &&
-        cmake .. -G "Visual Studio 15 2017" -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows-minimal.txt) &&
+        cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows.txt) &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     - name: package
@@ -61,17 +51,15 @@ jobs:
         mkdir ${{ env.PACKAGENAME }}
         Copy-Item -Verbose -Recurse -Force -Path "opencv-${{ env.OPENCV_VERSION }}\build-vs2019-x64\install\*" -Destination "${{ env.PACKAGENAME }}"
         Copy-Item -Verbose -Recurse -Force -Path "opencv-${{ env.OPENCV_VERSION }}\build-vs2019-x86\install\*" -Destination "${{ env.PACKAGENAME }}"
-        Copy-Item -Verbose -Recurse -Force -Path "opencv-${{ env.OPENCV_VERSION }}\build-vs2017-x64\install\*" -Destination "${{ env.PACKAGENAME }}"
-        Copy-Item -Verbose -Recurse -Force -Path "opencv-${{ env.OPENCV_VERSION }}\build-vs2017-x86\install\*" -Destination "${{ env.PACKAGENAME }}"
         7z a -r ${{ env.PACKAGENAME }}.zip ${{ env.PACKAGENAME }}
     - name: upload
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.PACKAGENAME }}
         path: ${{ env.PACKAGENAME }}.zip
-  
+
   release:
-    needs: [setup, opencv-windows]
+    needs: [setup, opencv-vs2019]
     runs-on: windows-2019
     steps:
     - name: download
@@ -95,7 +83,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PACKAGENAME: opencv-4.5.1-vc15-vc16-minimal
+        PACKAGENAME: opencv-4.5.1-vc16
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: artifacts/${{ env.PACKAGENAME }}/${{ env.PACKAGENAME }}.zip
