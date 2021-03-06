@@ -4,11 +4,13 @@ Personal build for OpenCV with github action, mainly for VS2019 platform.
 
 ## Why this
 
-The official opencv still does not provide VS2019 prebuilt package, while [**VS2019's Address Sanitizer**](https://devblogs.microsoft.com/cppblog/addresssanitizer-asan-for-windows-with-msvc/) is very useful for checking memory related bugs, thus I compile OpenCV manually. Just to share the built package here.
+The official opencv still does not provide VS2019 prebuilt package, while [**VS2019's Address Sanitizer**](https://devblogs.microsoft.com/cppblog/addresssanitizer-asan-for-windows-with-msvc/) is very useful for checking memory related bugs, thus I compile OpenCV manually on my own machine. People around me ask for that built of OpenCV. Just to share the built package here.
 
 ## Releases
 
-**[v3](https://github.com/zchrissirhcz/opencv-build/releases/tag/v3)** This release contains core,imgproc,imgcodecs,videoio,highgui,photo modules with optimization on, note that image format only support bmp/jpg/png.
+**[v4](https://github.com/zchrissirhcz/opencv-build/releases/tag/v4)** This release contains all modules with optimization on, note that image format only support bmp/jpg/png.
+
+[v3](https://github.com/zchrissirhcz/opencv-build/releases/tag/v3) This release contains core,imgproc,imgcodecs,videoio,highgui,photo modules with optimization on, note that image format only support bmp/jpg/png.
 
 [v2](https://github.com/zchrissirhcz/opencv-build/releases/tag/v2) This release is for minimal daily usage of OpenCV, only consist of core,imgproc,imgcodecs module, and imread/imwrite only for bmp/jpg/png format, and turning IPP optimization off.
 
