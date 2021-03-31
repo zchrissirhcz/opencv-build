@@ -22,4 +22,7 @@ The official opencv still does not provide VS2019 prebuilt package, while [**VS2
 
 2. Search and guess cmake options is not that fun. OpenCV document page **[tutorial_config_reference](https://docs.opencv.org/4.5.0/db/d05/tutorial_config_reference.html)** now provides detail explanations for many options, you may refer to it when customization built.
 
-
+3. armlinuxhf build
+- opencv-2.4.13.7 ok
+- opencv-3.4.13 failed
+- opencv-4.5.1 failed
