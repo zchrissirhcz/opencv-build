@@ -6,6 +6,13 @@
 #-DWITH_1394=OFF
 # 这两个开关，是用来避免直接找dc1394来做编解码，然后编译说 dc1394.h 找不到 的编译报错
 
+# -DWITH_PROTOBUF=OFF
+# -DWITH_QUIRC=OFF
+# 这两个开关，是用来避免换了电脑后，QUIRC和PROTOBUF库找不到的问题
+
+# 此外，还需要删除 GAPI 目录，否则 libade.a 找不到
+
+
 BUILD_DIR=armlinux-gnueabihf
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
@@ -43,6 +50,8 @@ cmake ../.. \
     -DBUILD_opencv_python2=OFF \
     -DBUILD_JAVA=OFF \
     -DBUILD_FAT_JAVA_LIB=OFF \
+    -DWITH_PROTOBUF=OFF \
+    -DWITH_QUIRC=OFF \
     -DWITH_FFMPEG=ON \
     -DCPU_BASELINE=NEON \
     -DWITH_1394=OFF
@@ -51,34 +60,32 @@ cmake ../.. \
 
     #-DCPU_BASELINE_DISABLE=FP16
 
-        #-DCV_DISABLE_OPTIMIZATION=ON
+    #-DCV_DISABLE_OPTIMIZATION=ON
 
-        # -DBUILD_TIFF=OFF
-        # -DBUILD_OPENJPEG=OFF
-        # -DBUILD_JASPER=OFF
-        # -DBUILD_JPEG=ON
-        # -DBUILD_OPENEXR=OFF
-        # -DBUILD_WEBP=OFF
-        # -DBUILD_TBB=OFF
-        # -DBUILD_IPP_IW=OFF
-        # -DBUILD_ITT=OFF
-        # -DWITH_OPENJPEG=OFF
-        # -DWITH_DSHOW=OFF
-        # -DWITH_MSMF=OFF
-        # -DWITH_MSMF_DXVA=OFF
-        # -DCV_TRACE=OFF
-        # -DWITH_IMGCODEC_HDR=OFF
-        # -DWITH_IMGCODEC_SUNRASTER=OFF
-        # -DWITH_IMGCODEC_PXM=OFF
-        # -DWITH_IMGCODEC_PFM=OFF
-        # -DWITH_JPEG=ON
-        # -DENABLE_PRECOMPILED_HEADERS=OFF
-        # -DWITH_FFMPEG=OFF
-        # -DWITH_PROTOBUF=OFF
-        # -DWITH_QUIRC=OFF
-        # -DOPENCV_CMAKE_DEBUG_MESSAGES=OFF
-        # -DWITH_DIRECTX=OFF
+    # -DBUILD_TIFF=OFF
+    # -DBUILD_OPENJPEG=OFF
+    # -DBUILD_JASPER=OFF
+    # -DBUILD_JPEG=ON
+    # -DBUILD_OPENEXR=OFF
+    # -DBUILD_WEBP=OFF
+    # -DBUILD_TBB=OFF
+    # -DBUILD_IPP_IW=OFF
+    # -DBUILD_ITT=OFF
+    # -DWITH_OPENJPEG=OFF
+    # -DWITH_DSHOW=OFF
+    # -DWITH_MSMF=OFF
+    # -DWITH_MSMF_DXVA=OFF
+    # -DCV_TRACE=OFF
+    # -DWITH_IMGCODEC_HDR=OFF
+    # -DWITH_IMGCODEC_SUNRASTER=OFF
+    # -DWITH_IMGCODEC_PXM=OFF
+    # -DWITH_IMGCODEC_PFM=OFF
+    # -DWITH_JPEG=ON
+    # -DENABLE_PRECOMPILED_HEADERS=OFF
+    # -DOPENCV_CMAKE_DEBUG_MESSAGES=OFF
+    # -DWITH_DIRECTX=OFF
 
-#cmake --build .
+cmake --build .
+cmake --install .
 
 cd ..
