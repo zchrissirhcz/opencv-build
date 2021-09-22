@@ -19,7 +19,7 @@ jobs:
     runs-on: windows-2019
     env:
       OPENCV_VERSION: 4.5.3
-      PACKAGENAME: opencv-4.5.1-vc16
+      PACKAGENAME: opencv-4.5.3-vc16
     steps:
     - uses: actions/checkout@v2
     - name: opencv-source
@@ -36,7 +36,7 @@ jobs:
       run: >-
         cd opencv-${{ env.OPENCV_VERSION }} &&
         mkdir build-vs2019-x64 && cd build-vs2019-x64 &&
-        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.1-windows.txt) &&
+        cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX=install $(type ..\..\options\opencv-4.5.3-windows.txt) &&
         cmake --build . --config Release -j 2 &&
         cmake --install . --config Release
     - name: build-vs2019-x86
@@ -74,7 +74,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         #tag_name: ${{ needs.setup.outputs.VERSION }}
-        tag_name: v4
+        tag_name: v5
         release_name: Release ${{ needs.setup.outputs.VERSION }}
         draft: false
         prerelease: false
@@ -83,7 +83,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PACKAGENAME: opencv-4.5.1-vc16
+        PACKAGENAME: opencv-4.5.3-vc16
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: artifacts/${{ env.PACKAGENAME }}/${{ env.PACKAGENAME }}.zip
